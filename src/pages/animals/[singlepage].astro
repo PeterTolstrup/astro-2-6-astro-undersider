@@ -1,0 +1,29 @@
+---
+export async function getStaticPaths() {
+    const url = "https://halnlercergpfthawfgy.supabase.co/rest/v1/";
+    const tabel = "Animals";
+
+    const key = "sb_publishable_Kk6axxbdvzKOJ_nlU7gbXg_r2U0dlLm";
+
+    const options = {
+        headers: {
+            apikey: key
+        }
+    }
+
+    const response = await fetch(url + tabel, options);
+    const animals = await response.json();
+
+    return animals.map((animal) => {
+        return {
+            params: { singlepage: animal.slug },
+            props: { animal },
+        };
+    });
+}
+
+const { animal } = Astro.props;
+---
+
+<h1>{animal.name}</h1>
+<img src={animal.image}/>

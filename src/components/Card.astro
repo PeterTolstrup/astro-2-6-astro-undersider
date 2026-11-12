@@ -1,11 +1,12 @@
 ---
-const { headline, text, image } = Astro.props;
+const { data } = Astro.props;
 ---
 
 <article>
-  <img src={image}/>
-  <h3>{headline}</h3>
-  <p>{text}</p>
+  <img src={data.image}/>
+  <h3>{data.name}</h3>
+  <p>{data.description}</p>
+  <a href=`/animals/${data.slug}`>Læs mere</a>
 </article>
 
 <style>

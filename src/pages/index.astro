@@ -27,7 +27,7 @@ console.log("animals", animals);
     <div class="cards">
       {
         animals.map((animal) => {
-          return <Card headline={animal.name} text={animal.description} image={animal.image}/>
+          return <Card data={animal}/>
         })
       }
     </div>
