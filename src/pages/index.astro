@@ -1,0 +1,62 @@
+---
+import Card from "../components/Card.astro";
+import BrandingSection from "../components/BrandingSection.astro";
+
+import PageLayout from "../layouts/PageLayout.astro";
+
+const url = "https://halnlercergpfthawfgy.supabase.co/rest/v1/";
+const tabel = "Animals";
+
+const key = "sb_publishable_Kk6axxbdvzKOJ_nlU7gbXg_r2U0dlLm";
+
+const options = {
+  headers: {
+    apikey: key
+  }
+}
+
+const response = await fetch(url + tabel, options);
+const animals = await response.json();
+
+console.log("animals", animals);
+---
+
+<PageLayout title="Fetch Example" headline="An Example With Fetch" text="Soon you know">
+  <section>
+    <h2>Her kunne der være nogle cards</h2>
+    <div class="cards">
+      {
+        animals.map((animal) => {
+          return <Card headline={animal.name} text={animal.description} image={animal.image}/>
+        })
+      }
+    </div>
+  </section>
+  <BrandingSection headline="Her er en Branding Section" text="Med en eller anden punchline" />
+  <section>
+    <h2>Her kunne der være noget tekst</h2>
+    <p>Selvom folk ikke læser det</p>
+    <div class="two-columns">
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, unde inventore exercitationem ipsum nobis atque laudantium molestiae ratione accusantium architecto est corrupti ab at, doloribus necessitatibus ea odio deserunt natus!</p>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse explicabo facere quo rem, aliquam sint consequuntur quod itaque dolores voluptatibus vitae minus commodi delectus odit labore eum error fugiat architecto.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad iusto pariatur sint totam voluptatum optio accusamus cumque, illum dignissimos id! Accusantium tempore reiciendis exercitationem, commodi delectus laudantium consectetur rem voluptatibus?</p>
+    </div>
+  </section>
+</PageLayout>
+<style>
+  section {
+    padding: 10%;
+  }
+
+  .cards {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding-top: 2rem;
+  }
+
+  .two-columns {
+    padding-top: 2rem;
+    column-count: 2;
+  }
+</style>
